@@ -31,7 +31,6 @@ public class TextCustomLayout extends CustomLayout {
     private static final String CLICK_EVENT = EventId.LAYOUT_CLICK;
 
     private final HashMap<String, String> textSlots = new HashMap<String, String>();
-    // private final List<String> changedSlots = new ArrayList<String>();
 
     private final Map<String, List<LocationClickListener>> locationListeners = new HashMap<String, List<LocationClickListener>>();
 
@@ -65,13 +64,11 @@ public class TextCustomLayout extends CustomLayout {
         }
 
         textSlots.put(location, text);
-        // changedSlots.add(location);
         requestRepaint();
     }
 
     public void removeText(String location) {
         textSlots.remove(location);
-        // changedSlots.add(location);
         requestRepaint();
     }
 

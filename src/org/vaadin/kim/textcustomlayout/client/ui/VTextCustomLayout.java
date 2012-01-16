@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.dom.client.EventTarget;
@@ -184,6 +185,7 @@ public class VTextCustomLayout extends ComplexPanel implements Paintable,
         List<String> newListeners = new ArrayList<String>(
                 locationsListeningForClicks);
         locationsListeningForClicks.clear();
+        Map<String, String> newTexts = new HashMap<String, String>();
         for (final Iterator<?> i = uidl.getChildIterator(); i.hasNext();) {
             final UIDL uidlForChild = (UIDL) i.next();
             if (uidlForChild.getTag().equals("location")) {
@@ -191,7 +193,7 @@ public class VTextCustomLayout extends ComplexPanel implements Paintable,
 
                 if (uidlForChild.hasAttribute("text")) {
                     final String text = uidlForChild.getStringAttribute("text");
-                    setText(text, location);
+                    newTexts.put(location, text);
                 } else {
                     final Paintable child = client.getPaintable(uidlForChild
                             .getChildUIDL(0));
@@ -218,6 +220,11 @@ public class VTextCustomLayout extends ComplexPanel implements Paintable,
                 // slot of this widget is emptied, remove it
                 remove(oldWidget);
             }
+        }
+
+        for (String location : newTexts.keySet()) {
+            String text = newTexts.get(location);
+            setText(text, location);
         }
 
         iLayout();
